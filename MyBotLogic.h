@@ -3,6 +3,8 @@
 #include "BotLogicIF.h"
 #include "Logger.h"
 #include "TileInfo.h"
+#include "Cible.h"
+#include "Position.h"
 
 #ifdef _DEBUG
    #define BOT_LOGIC_DEBUG
@@ -21,6 +23,9 @@ class MyBotLogic : public virtual BotLogicIF
 
 private:
    std::vector<TileInfo> listeTileGoals;
+   std::vector<TileInfo> listeTileInterdite;
+   std::vector<Cible> listeCibles;
+   std::vector<Position> listePosition;
 public:
 	MyBotLogic();
 	virtual ~MyBotLogic();

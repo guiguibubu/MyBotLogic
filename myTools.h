@@ -4,6 +4,9 @@
 #include "Globals.h"
 #include "TileInfo.h"
 #include "LevelInfo.h"
+#include "Cible.h"
+#include "Position.h"
+#include <vector>
 
    std::string tilePositionToString(Tile::ETilePosition tilePosition);
    std::string tileTypeToString(Tile::ETileType tileType);
@@ -12,6 +15,7 @@
    //Renvoie le nb de case a parcourir pour atteindre la tile2 en partant de la tile 1
    //renvois -1 s'il est impossible d'atteindre la tile2 a partir de la tile1
    int distanceNbTiles(LevelInfo& level, TileInfo& tile1, TileInfo& tile2);
+   int distanceNbTiles(LevelInfo& level, unsigned int tile1ID, unsigned int tile2ID);
    
    //Renvoie le nb de case separant la tile2 et la tile 1 selon l'axe X ou Y (tile2 - tile1)
    int distanceNbTilesX(LevelInfo& level, TileInfo& tile1, TileInfo& tile2);
@@ -38,3 +42,38 @@
    */
    int getMouvementX(Tile::ETilePosition mouvement);
    int getMouvementY(Tile::ETilePosition mouvement);
+
+   //renvoie le mouvement cardinal selon le mouvement en X et Y
+   /*
+   dx >=  1 && dy <= -1 -> NE
+   dx >=  1 && dy ==  0 -> E
+   dx ==  0 && dy >=  1 -> SE
+   dx <= -1 && dy >=  1 -> SW
+   dx <= -1 && dy ==  0 -> W
+   dx ==  0 && dy <= -1 -> NW
+   dx ==  0 && dy ==  0 -> CENTER
+   */
+   Tile::ETilePosition getDirection(int dx, int dy);
+
+   TileInfo getTileInfoFromID(LevelInfo& level, unsigned int tileID);
+   ObjectInfo getObjectInfoFromID(LevelInfo& level, unsigned int objectID);
+
+   std::vector<ObjectInfo> getObjectsOnTile(LevelInfo& level, unsigned int tileID);
+
+   //renvoie le cote oppose a celui en argument
+   //renvoie CENTER s'il n'y a pas de cote oppose
+   Tile::ETilePosition getCoteOppose(Tile::ETilePosition cote);
+
+   bool estUnePorte(LevelInfo& level, unsigned int objectID);
+   bool estUnePorteFermee(LevelInfo& level, unsigned int objectID);
+   bool estUneFenetre(LevelInfo& level, unsigned int objectID);
+   bool estUnMur(LevelInfo& level, unsigned int objectID);
+
+   // indique si la tile cible est deja assigne a un npc
+   bool tileGoalDejaAssigne(std::vector<Cible> listeCibles, unsigned int tileID);
+
+   //renvoie la cible concernant le npc precise
+   Cible getCibleByNPC(std::vector<Cible> listeCibles, unsigned int npcID);
+
+   //renvoie la position de la tile en argument
+   Position getPositionByTile(std::vector<Position> listePosition, unsigned int tileID);

@@ -8,5 +8,6 @@ struct Cible {
    NPCInfo npc;
    TileInfo tile;
 
+   Cible() = default;
    Cible(TileInfo& tile, NPCInfo& npc) : tile{ tile }, npc{ npc } {};
 };
