@@ -11,7 +11,11 @@ struct PathFinder {
 
 private:
    std::vector<unsigned int> tileVisited;
+   std::vector<unsigned int> tileCameFrom;
+   void init();
 public:
    PathFinder() = default;
-   PathFinder(unsigned int tileGoal, unsigned int tileStart, std::vector<Position> listePosition, std::vector<TileInfo> listeTileInterdite) : tileGoal { tileGoal }, tileStart{ tileStart }, listePosition{ listePosition }, listeTileInterdite{ listeTileInterdite }  {};
+   PathFinder(unsigned int tileGoal, unsigned int tileStart, std::vector<Position> listePosition, std::vector<TileInfo> listeTileInterdite) : tileGoal { tileGoal }, tileStart{ tileStart }, listePosition{ listePosition }, listeTileInterdite{ listeTileInterdite }  {
+      init();
+   };
 };

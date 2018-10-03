@@ -62,7 +62,6 @@ std::string tileTypeToString(Tile::ETileType tileType) {
 }
 
 std::string currentTimeForLog() {
-   std::string currentTime;
    auto now = std::chrono::system_clock::now();
    auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
@@ -333,4 +332,49 @@ Position getPositionByTile(std::vector<Position> listePosition, unsigned int til
       i++;
    }
    return positionTile;
+}
+
+std::vector<unsigned int> getVoisins(std::vector<Position> listePosition, unsigned int tileID) {
+   std::vector<unsigned int> listeVoisins;
+   int idVoisin;
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::NE);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::E);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::SE);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::SW);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::W);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   idVoisin = getVoisin(listePosition, tileID, Tile::ETilePosition::NW);
+   if (idVoisin != -1) {
+      listeVoisins.push_back(idVoisin);
+   }
+   return listeVoisins;
+}
+
+int getVoisin(std::vector<Position> listePosition, unsigned int tileID, Tile::ETilePosition direction) {
+   Position positionTile = getPositionByTile(listePosition, tileID);
+   int xVoisin = positionTile.x + getMouvementX(direction);
+   int yVoisin = positionTile.y + getMouvementY(direction);
+   int idVoisin = -1;
+   int i = 0;
+   int nbPosition = listePosition.size();
+   while (i < nbPosition && idVoisin < 0) {
+      Position position = listePosition[i];
+      idVoisin = (position.x == xVoisin && position.y == yVoisin) ? position.tileID : idVoisin;
+      i++;
+   }
+   return idVoisin;
 }

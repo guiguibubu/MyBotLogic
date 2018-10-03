@@ -77,3 +77,9 @@
 
    //renvoie la position de la tile en argument
    Position getPositionByTile(std::vector<Position> listePosition, unsigned int tileID);
+
+   // renvoie les ID des tiles voisines
+   std::vector<unsigned int> getVoisins(std::vector<Position> listePosition, unsigned int tileID);
+   // renvoie l'ID de la tile voisine dans la direction precise
+   // renvoie -1 si hors du terrain de jeu
+   int getVoisin(std::vector<Position> listePosition, unsigned int tileID, Tile::ETilePosition direction);

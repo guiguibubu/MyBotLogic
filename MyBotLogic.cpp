@@ -51,6 +51,7 @@ MyBotLogic::MyBotLogic()
    listeTileGoals.empty();
    listeTileInterdite.empty();
    for (auto tile : _levelInfo.tiles) {
+      // on memorise toutes les positions visibles dans le niveau
       listePosition.push_back(Position::Position(tile.second.tileID, getPositionX(_levelInfo,tile.second), getPositionY(_levelInfo, tile.second)));
       if (tile.second.tileType == Tile::ETileType::TileAttribute_Goal) {
          listeTileGoals.push_back(tile.second);
