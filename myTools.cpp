@@ -75,9 +75,9 @@ std::string currentTimeForLog() {
 }
 
 int distanceNbTiles(LevelInfo& level, TileInfo& tile1, TileInfo& tile2) {
-   int dx = std::abs(distanceNbTilesX(level, tile1, tile2));
-   int dy = std::abs(distanceNbTilesY(level, tile1, tile2));
-   return dx + dy;
+   int dx = distanceNbTilesX(level, tile1, tile2);
+   int dy = distanceNbTilesY(level, tile1, tile2);
+   return std::max(std::abs(dx), std::abs(dy), std::abs(dx+dy));
 }
 
 int distanceNbTiles(LevelInfo& level, unsigned int tile1ID, unsigned int tile2ID) {
