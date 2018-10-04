@@ -83,3 +83,13 @@
    // renvoie l'ID de la tile voisine dans la direction precise
    // renvoie -1 si hors du terrain de jeu
    int getVoisin(std::vector<Position> listePosition, unsigned int tileID, Tile::ETilePosition direction);
+
+   std::vector<unsigned int> convertIntoListID(std::vector<TileInfo> listeTile);
+   std::vector<unsigned int> convertIntoListID(std::vector<NPCInfo> listeNpc);
+   std::vector<unsigned int> convertIntoListID(std::map<unsigned int, NPCInfo> dicoNpc);
+   std::vector<unsigned int> convertIntoListID(std::map<unsigned int, TileInfo> dicoTile);
+   std::vector<unsigned int> convertIntoListID(std::map<unsigned int, ObjectInfo> dicoObject);
+
+   std::vector<unsigned int> getOrderedList(std::vector<unsigned int> liste);
+   std::vector<unsigned int> getOrderedNpcByDistance(std::vector<unsigned int> listeNPC, std::map<unsigned int, std::vector<unsigned int>> dicoCheminRestant);
+   std::vector<unsigned int> getOrderedNpcByDistance(std::map<unsigned int, NPCInfo> dicoNpc, std::map<unsigned int, std::vector<unsigned int>> dicoCheminRestant);

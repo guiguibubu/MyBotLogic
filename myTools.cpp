@@ -76,7 +76,7 @@ std::string currentTimeForLog() {
 int distanceNbTiles(LevelInfo& level, TileInfo& tile1, TileInfo& tile2) {
    int dx = distanceNbTilesX(level, tile1, tile2);
    int dy = distanceNbTilesY(level, tile1, tile2);
-   return std::max(std::abs(dx), std::abs(dy), std::abs(dx+dy));
+   return std::max(std::max(std::abs(dx), std::abs(dy)), std::abs(dx+dy));
 }
 
 int distanceNbTiles(LevelInfo& level, unsigned int tile1ID, unsigned int tile2ID) {
@@ -298,7 +298,7 @@ bool tileGoalDejaAssigne(std::vector<Cible> listeCibles, unsigned int tileID) {
    int nbCibles = listeCibles.size();
    int i = 0;
    while (!dejaAssigne && i < nbCibles) {
-      dejaAssigne = listeCibles[i].tile.tileID == tileID;
+      dejaAssigne = listeCibles[i].tileGoal.tileID == tileID;
       i++;
    }
    return dejaAssigne;
@@ -377,4 +377,57 @@ int getVoisin(std::vector<Position> listePosition, unsigned int tileID, Tile::ET
       i++;
    }
    return idVoisin;
+}
+
+std::vector<unsigned int> convertIntoListID(std::vector<TileInfo> listeTile) {
+   std::vector<unsigned int> listeID;
+   for (TileInfo tile : listeTile) {
+      listeID.push_back(tile.tileID);
+   }
+   return listeID;
+}
+
+std::vector<unsigned int> convertIntoListID(std::vector<NPCInfo> listeNpc) {
+   std::vector<unsigned int> listeID;
+   for (NPCInfo npc : listeNpc) {
+      listeID.push_back(npc.npcID);
+   }
+   return listeID;
+}
+
+std::vector<unsigned int> convertIntoListID(std::map<unsigned int, NPCInfo> dicoNpc) {
+   std::vector<unsigned int> listeID;
+   for (auto npc : dicoNpc) {
+      listeID.push_back(npc.second.npcID);
+   }
+   return listeID;
+}
+
+std::vector<unsigned int> convertIntoListID(std::map<unsigned int, TileInfo> dicoTile) {
+   std::vector<unsigned int> listeID;
+   for (auto tile : dicoTile) {
+      listeID.push_back(tile.second.tileID);
+   }
+   return listeID;
+}
+
+std::vector<unsigned int> convertIntoListID(std::map<unsigned int, ObjectInfo> dicoObject) {
+   std::vector<unsigned int> listeID;
+   for (auto object : dicoObject) {
+      listeID.push_back(object.second.objectID);
+   }
+   return listeID;
+}
+
+std::vector<unsigned int> getOrderedList(std::vector<unsigned int> liste) {
+   std::sort(liste.begin(), liste.end(), [](int i, int j) { return (i < j); });
+   return liste;
+}
+std::vector<unsigned int> getOrderedNpcByDistance(std::vector<unsigned int> listeNPC, std::map<unsigned int, std::vector<unsigned int>> dicoCheminRestant) {
+   std::vector<unsigned int> listeNpcOrdered = listeNPC;
+   std::sort(listeNpcOrdered.begin(), listeNpcOrdered.end(), [&dicoCheminRestant](int npc1, int npc2) { return (dicoCheminRestant.at(npc1).size() < dicoCheminRestant.at(npc2).size()); });
+   return listeNpcOrdered;
+}
+std::vector<unsigned int> getOrderedNpcByDistance(std::map<unsigned int, NPCInfo> dicoNpc, std::map<unsigned int, std::vector<unsigned int>> dicoCheminRestant) {
+   return getOrderedNpcByDistance(convertIntoListID(dicoNpc), dicoCheminRestant);
 }

@@ -8,7 +8,7 @@ bool operator!=(Position& position1, Position& position2) {
    return !( position1 == position2 );
 }
 
-void move(int dx, int dy){
+void Position::move(int dx, int dy){
 	x += dx;
 	y += dy;
 }
