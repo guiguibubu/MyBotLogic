@@ -419,6 +419,14 @@ std::vector<unsigned int> convertIntoListID(std::map<unsigned int, ObjectInfo> d
    return listeID;
 }
 
+std::vector<unsigned int> convertIntoListID(std::map<unsigned int, unsigned int> dicoID) {
+   std::vector<unsigned int> listeID;
+   for (auto object : dicoID) {
+      listeID.push_back(object.second);
+   }
+   return listeID;
+}
+
 std::vector<unsigned int> getOrderedList(std::vector<unsigned int> liste) {
    std::sort(liste.begin(), liste.end(), [](int i, int j) { return (i < j); });
    return liste;

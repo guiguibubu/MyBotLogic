@@ -89,6 +89,7 @@
    std::vector<unsigned int> convertIntoListID(std::map<unsigned int, NPCInfo> dicoNpc);
    std::vector<unsigned int> convertIntoListID(std::map<unsigned int, TileInfo> dicoTile);
    std::vector<unsigned int> convertIntoListID(std::map<unsigned int, ObjectInfo> dicoObject);
+   std::vector<unsigned int> convertIntoListID(std::map<unsigned int, unsigned int> dicoID);
 
    std::vector<unsigned int> getOrderedList(std::vector<unsigned int> liste);
    std::vector<unsigned int> getOrderedNpcByDistance(std::vector<unsigned int> listeNPC, std::map<unsigned int, std::vector<unsigned int>> dicoCheminRestant);
